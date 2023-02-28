@@ -9,8 +9,8 @@ package vinnsla;
  * A class representing a customer.
  */
 public class Vidskiptavinur {
-    private String nafn;
-    private String heimilisfang;
+    private static String nafn;
+    private static String heimilisfang;
 
     /**
      * Constructs a new Vidskiptavinur object with default values.
