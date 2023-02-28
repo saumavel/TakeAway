@@ -31,6 +31,10 @@ public class PontunController {
 
     @FXML
     private Button borgaButton;
+    @FXML
+    private Button innskraningButton;
+    @FXML
+    private Button nyrNotandiButton;
 
     /**
      * The Label that displays the total price of the items in the user's cart.
@@ -76,7 +80,8 @@ public class PontunController {
      */
     @FXML
     private void fxInnskraningHandler(ActionEvent event){
-        ViewSwitcher.switchTo(View.VIDSKIPTAVINUR);
+        LoginDialog dialog = new LoginDialog();
+        dialog.showAndWait();
     }
     @FXML
     private void fxNyrNotandihandler(ActionEvent actionEvent) {
@@ -103,6 +108,8 @@ public class PontunController {
 
     public void buttonPusher(){
         borgaButton.setDisable(false);
+        innskraningButton.setDisable(true);
+        nyrNotandiButton.setDisable(true);
     }
 
     /**

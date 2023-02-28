@@ -1,22 +1,19 @@
 package vidmot;
 
-import javafx.event.Event;
-import javafx.event.EventType;
 import javafx.scene.control.*;
 
-/**
- * @Author Kári Einarsson
- * @Email: saumavel@gmail.com
- */
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.GridPane;
-import javafx.util.Callback;
+import javafx.util.Pair;
+import vinnsla.Vidskiptavinur;
+
+import java.util.Optional;
 
 public class LoginDialog extends TextInputDialog {
 
-    private Label nameLabel;
+    private TextField nameLabel;
     private PasswordField passwordField;
+
 
     public LoginDialog() {
         super();
@@ -30,10 +27,10 @@ public class LoginDialog extends TextInputDialog {
 
     private void init() {
         this.setTitle("Login Dialog");
-        this.setHeaderText("Please enter your credentials.");
+        this.setHeaderText("Please enter your password.");
 
-        // Create label for name
-        nameLabel = new Label("Name: Kári Einarsson");
+        // Create text field for name
+        nameLabel = new TextField("Kári Einarsson");
 
         // Create password field
         passwordField = new PasswordField();
@@ -42,9 +39,29 @@ public class LoginDialog extends TextInputDialog {
         // Set custom content for dialog
         GridPane grid = new GridPane();
         grid.add(nameLabel, 0, 0);
-        grid.add(getEditor(), 1, 0);
-        grid.add(passwordField, 1, 1);
+        grid.add(passwordField, 0, 1);
         this.getDialogPane().setContent(grid);
 
+        // Tekur út OK button
+        this.getDialogPane().getButtonTypes().clear();
+
+        // Setur event handler á nýja takkan okkar.
+        ButtonType okButtonType = new ButtonType("Skrá inn", ButtonBar.ButtonData.OK_DONE);
+        this.getDialogPane().getButtonTypes().add(okButtonType);
+
+        this.setResultConverter(dialogButton -> {
+            if (dialogButton == okButtonType) {
+                Vidskiptavinur Kari = new Vidskiptavinur(String.valueOf(nameLabel.getText()), "Hringbraut 58");
+                PontunController pontunController = (PontunController) ViewSwitcher.lookup(View.PONTUN);
+                pontunController.buttonPusher();
+
+            }
+            return null;
+        });
+    }
+
+    public Optional<String> showDialog() {
+        return this.showAndWait();
     }
 }
+
