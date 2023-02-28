@@ -1,39 +1,37 @@
 package vidmot;
-import javafx.fxml.FXMLLoader;
-import vinnsla.*;
-
-import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-
-import java.io.IOException;
 /**
- * A custom JavaFX ListView for displaying a menu of food items.
- *
- * This class extends the JavaFX ListView class and provides functionality for displaying a list of
- * food items using the Matsedill data model. The MatsedillView class is responsible for loading the
- * associated FXML file, initializing the Matsedill data model, and populating the list view with
- * the food items in the menu.
- *
- * The MatsedillView class also provides a reference to the Matsedill data model, which can be used
- * by other classes to access the menu items and perform operations on them.
- *
  * @Author Kári Einarsson
  * @Email: saumavel@gmail.com
+ */
+import javafx.fxml.FXMLLoader;
+import vinnsla.*;
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
+import java.io.IOException;
+
+/**
+ * The MatsedillView class is a custom JavaFX ListView that is used to display the menu of items
+ * available for ordering in the takeaway ordering system. It extends the ListView class and
+ * contains functionality for populating the list with items from the Matsedill class.
  */
 public class MatsedillView extends ListView {
     @FXML
     private ListView<Veitingar> veitingarList;
 
     @FXML
-    private Matsedill matsedill;
+    private final Matsedill matsedill;
 
+    /**
+     * Initializes the MatsedillView by loading the FXML file and setting the root and controller,
+     * creating a new Matsedill object and populating the ListView with items from that object.
+     */
     public MatsedillView() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/matsedill-view.fxml"));
-        fxmlLoader.setRoot(this); //Rótin á viðmótstré
-        fxmlLoader.setController(this); //Controller settur hér en ekki í fxml skránni
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
 
         try {
-            fxmlLoader.load(); //Viðmótstré lesið inn(þe. fxml skráin)
+            fxmlLoader.load();
         } catch (IOException exeption) {
             throw new RuntimeException(exeption);
         }
